@@ -1,5 +1,8 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine On
+#	This next 2 Lines are an example on how you can still allow access to a specific directory in the root... 
+#	RewriteRule ^f/$ f/ [L]
+#	RewriteRule ^f/(.*)$ f/$1 [L]
 	RewriteRule ^$ public/ [L]
 	RewriteRule (.*) public/$1 [L]
 </IfModule>
