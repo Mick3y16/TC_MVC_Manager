@@ -10,4 +10,7 @@ define('DB_CHAR','database2');
 define('DB_USER','username');
 define('DB_PASS','password');
 
+// Directories
+define('DIR_LOGS','../tmp/logs/error.log');
+
 ?>
