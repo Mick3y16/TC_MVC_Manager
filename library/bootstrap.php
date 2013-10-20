@@ -19,8 +19,28 @@ class Bootstrap {
 
 	public function urlProcessor() {
 		$url = strtolower($_SERVER['REQUEST_URI']);
-		echo $url;
-		// Just testing, this will load the controllers and models...
+		if($url == '/') {
+			$controller = 'home';
+			$action = null;
+			$actionstring = null;
+			// TEST: echo $controller.' '.$action.' '.$actionstring;
+		} else {
+			$urlstring = explode('/', substr($url, 1));
+			// Setting the controller...
+			$controller = $urlstring[0];
+			// Shifting to the next value in the array...
+			array_shift($urlstring);
+				if(!empty($urlstring[0])) {
+				/*	if() {
+						//Must look for the method inside the controller and check for its existence or not... =P
+					} else {
+						$action = null;
+						if(!empty($queryString[1])) { unset($queryString[1]); }
+					}	*/
+				} else {
+					$action = null // Default...
+				}
+		}
 	}
 
 }
