@@ -3,6 +3,21 @@
 // Loading the Config File... Obviously
 require_once('../config/config.php');
 
+function autoload($className) {
+    if (file_exists(DIR_ROOT.'/library/'.strtolower($className).'.php')) {
+        require_once(DIR_ROOT.'/library/'.strtolower($className).'.php');
+	} else if (file_exists(DIR_ROOT.'/library/core/'.$className.'.php')) {
+        require_once(DIR_ROOT.'/library/core/'.$className.'.php');
+    } else if (file_exists(DIR_ROOT.'/application/controllers/'.$className.'.php')) {
+        require_once(DIR_ROOT.'/application/controllers/'.$className.'.php');
+    } else if (file_exists(DIR_ROOT.'/application/models/'.strtolower($className).'.php')) {
+        require_once(DIR_ROOT.'/application/models/'.strtolower($className).'.php');
+    } else {
+        // Enable to load class... 
+    }
+}
+spl_autoload_register("autoload");
+
 class Bootstrap {
 
 	public function setReporting() {
@@ -19,45 +34,46 @@ class Bootstrap {
 
 	public function urlProcessor() {
 		$url = strtolower($_SERVER['REQUEST_URI']);
-		if($url == '/') {
+		$urlstring = explode('/', substr($url, 1));
+		if($urlstring[0] == '') {
 			$controller = 'home';
-			$action = null;
-			$actionstring = null;
-			// TEST: echo $controller.' '.$action.' '.$actionstring;
+			$action = 'index';
 		} else {
 			$urlstring = explode('/', substr($url, 1));
-			// Setting the controller...
 			$controller = $urlstring[0];
-			// Shifting to the next value in the array...
-			array_shift($urlstring);
+			if(file_exists(DIR_ROOT.'/application/controllers/'.ucfirst($controller).'Controller.php')) {
+				array_shift($urlstring);
 				if(!empty($urlstring[0])) {
-				/*	if() {
-						//Must look for the method inside the controller and check for its existence or not... =P
+					if((int)method_exists(ucfirst($controller).'Controller', $urlstring[0])) {
+						$action = $urlstring[0];
+						array_shift($urlstring);
 					} else {
-						$action = null;
-						if(!empty($queryString[1])) { unset($queryString[1]); }
-					}	*/
+						$action = (!empty($urlstring[1])) ? $urlstring[1] : 'index';
+						unset($urlstring[1]);
+					}
 				} else {
-					$action = null // Default...
+					$action = 'index'; // Default...
 				}
+			} else {
+				$controller = 'home';
+				$action = 'index';
+			}
+		}
+		$controllerName = ucfirst($controller).'Controller';
+		$model = $controller;
+        if(file_exists(DIR_ROOT.'/application/controllers/'.ucfirst($controller).'Controller.php')) {
+			$dispatch = new $controllerName($model, $controller, $action);
+        } else {
+			$action = 'index';
+			$controllerName = 'HomeController';
+            $dispatch = new $controllerName	('home', 'home', $action);
+        }
+		if ((int)method_exists($controllerName, $action)) {
+			call_user_func_array(array($dispatch, $action), $urlstring);
 		}
 	}
-
 }
 
-function autoload($className) {
-    if (file_exists('../library/'.$className)) {
-        require_once('../library/'.$className);
-    } else if (file_exists('../application/controllers/'.$className)) {
-        require_once('../application/controllers/'.$className);
-    } else if (file_exists('../application/models/'.$className)) {
-        require_once('../application/models/'.$className);
-    } else {
-        /* Unable to load class... =X */
-    }
-}
-
-spl_autoload_register("autoload");
 $boot = new Bootstrap();
 
 $boot->setReporting();
