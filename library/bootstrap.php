@@ -47,7 +47,6 @@ class Bootstrap {
 			$controller = 'home';
 			$action = 'index';
 		} else {
-			$urlstring = explode('/', substr($url, 1));
 			$controller = $urlstring[0];
 			if(file_exists(DIR_ROOT.'/application/controllers/'.ucfirst($controller).'Controller.php')) {
 				array_shift($urlstring);
