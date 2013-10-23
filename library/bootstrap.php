@@ -2,6 +2,8 @@
 
 // Loading the Config File... Obviously
 require_once('../config/config.php');
+// Implementing the SMF bridge AKA SSI
+require_once(DIR_ROOT.'/f/SSI.php');
 
 function autoload($className) {
     if (file_exists(DIR_ROOT.'/library/'.strtolower($className).'.php')) {
@@ -19,6 +21,12 @@ function autoload($className) {
 spl_autoload_register("autoload");
 
 class Bootstrap {
+
+	public function __construct($context, $settings, $txt) {
+		$this->context = $context;
+		$this->settings = $settings;
+		$this->txt = $txt;		
+	}
 
 	public function setReporting() {
 		if (DEVELOPMENT_ENVIRONMENT == true) {
@@ -62,11 +70,11 @@ class Bootstrap {
 		$controllerName = ucfirst($controller).'Controller';
 		$model = $controller;
         if(file_exists(DIR_ROOT.'/application/controllers/'.ucfirst($controller).'Controller.php')) {
-			$dispatch = new $controllerName($model, $controller, $action);
+			$dispatch = new $controllerName($model, $controller, $action, $this->context, $this->settings, $this->txt);
         } else {
 			$action = 'index';
 			$controllerName = 'HomeController';
-            $dispatch = new $controllerName	('home', 'home', $action);
+            $dispatch = new $controllerName	('home', 'home', $action, $this->context, $this->settings, $this->txt);
         }
 		if ((int)method_exists($controllerName, $action)) {
 			call_user_func_array(array($dispatch, $action), $urlstring);
