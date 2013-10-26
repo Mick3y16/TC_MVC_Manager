@@ -9,6 +9,9 @@ class Database {
 	private $pass = DB_PASS;
 	private $error;
 	
+	protected $dbauth;
+	protected $dbchar;
+	
 	public function authconnect() {
 		// Set Database 
 		$auth = 'mysql:host=' . $this->host . ';dbname=' . $this->authdb . ';charset=utf8';
@@ -17,8 +20,7 @@ class Database {
 		);
 		// Create DB connection
 		try {
-			$dbauth = new PDO($auth, $this->user, $this->pass, $options);
-			return $dbauth;
+			$this->dbauth = new PDO($auth, $this->user, $this->pass, $options);
 		}
 		// Catch any errors
 		catch (PDOException $e) {
@@ -34,8 +36,7 @@ class Database {
 		);
 		// Create DB connection
 		try {
-			$dbchar = new PDO($char, $this->user, $this->pass, $options);
-			return $dbchar;
+			$this->dbchar = new PDO($char, $this->user, $this->pass, $options);
 		}
 		// Catch any errors
 		catch (PDOException $e) {
@@ -52,7 +53,7 @@ class Database {
 			'connection' => $db->getAttribute(PDO::ATTR_CONNECTION_STATUS)
 		);
 	}
-
+	
 }
 
 ?>
