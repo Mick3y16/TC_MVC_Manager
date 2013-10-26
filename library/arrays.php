@@ -1,0 +1,78 @@
+<?php
+
+class Arrays {
+
+	public $type = array( 0 => 	'Normal',
+								'PvP',
+						4 => 	'Normal',
+						6 =>	'RP',
+						8 =>	'RP PvP');
+	public $version = array( 5875 => 	'1.12.1',
+							6005 => 	'1.12.2',
+							8606 =>		'2.4.3',
+							9947 =>		'3.1.3',
+							10146 => 	'3.2.0',
+							10505 =>	'3.2.2a',
+							10571 =>	'3.3.0',
+							11159 =>	'3.3.0a',
+							11403 => 	'3.3.2',
+							11623 =>	'3.3.3',
+							12340 =>	'3.3.5a',
+							15595 =>	'4.3.4');
+	public $expansion = array ( 0 => 	'Classic',
+										'The Burning Crusade',
+										'Wrath of The Lich King',
+										'Cataclysm');
+	public $gender = array ( 0 =>	'Male', 
+									'Female');
+	public $race = array( 1 => 	'Human',
+								'Orc',
+								'Dwarf',
+								'Night Elf',
+								'Undead',
+								'Tauren',
+								'Gnome',
+								'Troll',
+						10 => 	'Blood Elf',
+								'Draenei');
+	public $class = array( 1 => 'Warrior',
+								'Paladin',
+								'Hunter',
+								'Rogue',
+								'Priest',
+								'Death Knight',
+								'Shaman',
+								'Mage',
+								'Warlock',
+						11 =>	'Druid');
+	public $imgrace_female = array( 1 => 	'<img src="/img/race/human_female.gif" alt="Human Female" />',
+											'<img src="/img/race/orc_female.gif" alt="Orc Female" />',
+											'<img src="/img/race/dwarf_female.gif" alt="Dwarf Female" />',
+											'<img src="/img/race/nightelf_female.gif" alt="Night Elf Female" />',
+											'<img src="/img/race/undead_female.gif" alt="Undead Female" />',
+											'<img src="/img/race/tauren_female.gif" alt="Tauren Female" />',
+											'<img src="/img/race/gnome_female.gif" alt="Gnome Female" />',
+											'<img src="/img/race/troll_female.gif" alt="Troll Female" />',
+									10 =>	'<img src="/img/race/bloodelf_female.gif" alt="Blood Elf Female" />',
+											'<img src="/img/race/draenei_female.png" alt="Draenei Female" />');
+	public $imgrace_male = array( 1 => 	'<img src="/img/race/human_male.gif" alt="Human male" />',
+										'<img src="/img/race/orc_male.gif" alt="Orc male" />',
+										'<img src="/img/race/dwarf_male.gif" alt="Dwarf male" />',
+										'<img src="/img/race/nightelf_male.gif" alt="Night Elf male" />',
+										'<img src="/img/race/undead_male.gif" alt="Undead male" />',
+										'<img src="/img/race/tauren_male.gif" alt="Tauren male" />',
+										'<img src="/img/race/gnome_male.gif" alt="Gnome male" />',
+										'<img src="/img/race/troll_male.gif" alt="Troll male" />',
+								10 =>	'<img src="/img/race/bloodelf_male.gif" alt="Blood Elf male" />',
+										'<img src="/img/race/draenei_male.png" alt="Draenei male" />');
+	public $imgclass = array( 1 => 	'<img src="/img/classes/warrior.gif" alt="Warrior" />',
+									'<img src="/img/classes/paladin.gif" alt="Paladin" />',
+									'<img src="/img/classes/hunter.gif" alt="Hunter" />',
+									'<img src="/img/classes/rogue.gif" alt="Rogue" />',
+									'<img src="/img/classes/priest.gif" alt="Priest" />',
+									'<img src="/img/classes/dk.gif" alt="Death Knight" />',
+									'<img src="/img/classes/shaman.gif" alt="Shaman" />',
+									'<img src="/img/classes/mage.gif" alt="Mage" />',
+									'<img src="/img/classes/warlock.gif" alt="Warlock" />',
+							11 => 	'<img src="/img/classes/druid.gif" alt="Druid" />');
+}

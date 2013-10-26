@@ -7,7 +7,7 @@ class Controller {
 	protected $_action;
 	protected $_template;
 
-	function __construct($model, $controller, $action, $context, $settings, $txt) {
+	function __construct($model, $controller, $action, $context, $settings, $txt, $scripturl) {
 		// Creating the objects for the Controller...
 		$this->_controller = $controller;
 		$this->_action = $action;
@@ -17,10 +17,14 @@ class Controller {
 		$this->$model = new $model;
 		$this->_template = new Template($controller, $action);
 
+		// Initializing the formatting Arrays
+		$this->arrays = new Arrays;
+		
 		// "Globalazing" the SMF Variables throughout the script...
 		$this->set('context', $context);
 		$this->set('settings', $settings);
 		$this->set('txt', $txt);
+		$this->set('scripturl', $scripturl);
 	}
 
 	function set($name,$value) {
