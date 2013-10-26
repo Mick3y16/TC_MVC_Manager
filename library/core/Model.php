@@ -3,13 +3,13 @@
 class Model extends Database {
 
 	protected $_model;
-	protected $dbauth;
-	protected $dbchar;
+	public $dbauth;
+	public $dbchar;
 
 	public function __construct() {
 		// Initializing the DB Connections...
-		$this->dbauth = $this->authconnect();
-		$this->dbchar = $this->charconnect();
+		$this->authconnect();
+		$this->charconnect();
 		// Setting the name of the Model in use...
 		$this->_model = get_class($this);
 	}
